@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Exercise\\is220\\Project_test\\Project_test\\Project_test.csproj": {}
+    "E:\\uit\\is220\\Project_test.csproj": {}
   },
   "projects": {
-    "D:\\Exercise\\is220\\Project_test\\Project_test\\Project_test.csproj": {
+    "E:\\uit\\is220\\Project_test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Exercise\\is220\\Project_test\\Project_test\\Project_test.csproj",
+        "projectUniqueName": "E:\\uit\\is220\\Project_test.csproj",
         "projectName": "Project_test",
-        "projectPath": "D:\\Exercise\\is220\\Project_test\\Project_test\\Project_test.csproj",
-        "packagesPath": "C:\\Users\\lovet\\.nuget\\packages\\",
-        "outputPath": "D:\\Exercise\\is220\\Project_test\\Project_test\\obj\\",
+        "projectPath": "E:\\uit\\is220\\Project_test.csproj",
+        "packagesPath": "C:\\Users\\Nhan\\.nuget\\packages\\",
+        "outputPath": "E:\\uit\\is220\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\lovet\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Nhan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -69,6 +73,10 @@
             "PagedList.Core.Mvc": {
               "target": "Package",
               "version": "[3.0.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.3.0, )"
             }
           },
           "imports": [
@@ -89,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,4 +1,8 @@
 using AspNetCoreHero.ToastNotification;
+using Microsoft.EntityFrameworkCore;
+using Project_test.Models;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace Project_test
 {
@@ -7,11 +11,12 @@ namespace Project_test
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            //IServiceCollection services = new IServiceCollection();
             // Add services to the container.
+            builder.Services.AddDbContext<dbFrameContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("dbUITPro")));
+            builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges: new[] {UnicodeRanges.All}));
             builder.Services.AddControllersWithViews();
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopLeft; });
+            builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
 
             var app = builder.Build();
 
@@ -40,11 +45,24 @@ namespace Project_test
 
             app.UseEndpoints(endpoints =>
             {
+
+                endpoints.MapAreaControllerRoute(
+                    name: "Admin",
+                    areaName: "Admin",
+                    pattern: "Admin/{controller=Home}/{action=Index}"
+                );
+
                 endpoints.MapControllerRoute(
-                  name: "areas",
-                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    name: "areaRoute",
+                    pattern: "{area:exists}/{controller}/{action}/{id}"
+                );
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
                 );
             });
+
 
             app.Run();
         }
