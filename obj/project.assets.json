@@ -9955,9 +9955,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\uit\\is220\\Project_test.csproj",
-      "projectName": "Project_test",
-      "projectPath": "E:\\uit\\is220\\Project_test.csproj",
+      "projectUniqueName": "E:\\uit\\is220\\IS220_PROJECT.csproj",
+      "projectName": "IS220_PROJECT",
+      "projectPath": "E:\\uit\\is220\\IS220_PROJECT.csproj",
       "packagesPath": "C:\\Users\\Nhan\\.nuget\\packages\\",
       "outputPath": "E:\\uit\\is220\\obj\\",
       "projectStyle": "PackageReference",

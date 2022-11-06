@@ -1,10 +1,10 @@
 using AspNetCoreHero.ToastNotification;
 using Microsoft.EntityFrameworkCore;
-using Project_test.Models;
+using IS220_PROJECT.Models;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 
-namespace Project_test
+namespace IS220_PROJECT
 {
     public class Program { 
 

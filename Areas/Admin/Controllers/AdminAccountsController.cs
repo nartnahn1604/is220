@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Project_test.Models;
+using IS220_PROJECT.Models;
 
-namespace Project_test.Areas.Admin.Controllers
+namespace IS220_PROJECT.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin")]

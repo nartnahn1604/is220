@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Project_test.Models
+namespace IS220_PROJECT.Models
 {
     public partial class dbFrameContext : DbContext
     {

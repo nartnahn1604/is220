@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Project_test.Models
+namespace IS220_PROJECT.Models
 {
     public partial class Customer
     {

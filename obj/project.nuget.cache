@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sz4R5F479pnot6i5HlZzEQfvsaQHpzJU8o/UKGt27VxpSRQhPvT5xh86oXqCb3Zuqk70SBF/3mPFCkcuonu5mw==",
+  "dgSpecHash": "pYmfF/bPaHmVUmhkFAvV2nwXfSuXq81gT/Z5F7vtMp6xp07wI8dZakWtAkbJXxBJd+BEFMxB3NMbbCyOsBbevw==",
   "success": true,
-  "projectFilePath": "E:\\uit\\is220\\Project_test.csproj",
+  "projectFilePath": "E:\\uit\\is220\\IS220_PROJECT.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nhan\\.nuget\\packages\\aspnetcorehero.toastnotification\\1.1.0\\aspnetcorehero.toastnotification.1.1.0.nupkg.sha512",
     "C:\\Users\\Nhan\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
