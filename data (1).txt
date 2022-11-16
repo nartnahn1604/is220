@@ -1,0 +1,107 @@
+INSERT INTO Accounts VALUES ('quocvinh9502', '123', 1, 1, NULL, NULL)
+INSERT INTO Accounts VALUES ('vannhan1604', '123', 1, 1, NULL, NULL)
+INSERT INTO Accounts VALUES('thanhnhan2308', '456', 1, 1, NULL, NULL)
+INSERT INTO Accounts VALUES('manhtien2901', '000', 1, 2, NULL, NULL)
+INSERT INTO Accounts VALUES('hatien', '111', 1, 2, NULL, NULL)
+
+INSERT INTO Roles VALUES ('Admin', N'Full chức năng')
+INSERT INTO Roles VALUES ('Customer', N'Xem, mua hàng, theo dõi đơn hàng')
+
+INSERT INTO Categories VALUES (N'Laptop', NULL, NULL, 1, 1, 1)
+INSERT INTO Categories VALUES (N'Màn hình', NULL, NULL, 1, 2, 1)
+INSERT INTO Categories VALUES (N'Arm màn hình', NULL, NULL, 1, 3, 1)
+INSERT INTO Categories VALUES (N'Âm thanh', NULL, NULL, 1, 4, 1)
+INSERT INTO Categories VALUES (N'Bàn phím', NULL, NULL, 1, 5, 1)
+INSERT INTO Categories VALUES (N'Ghế công thái học', NULL, NULL, 1, 6, 1)
+INSERT INTO Categories VALUES (N'Máy chơi game', NULL, NULL, 1, 7, 1)
+INSERT INTO Categories VALUES (N'Phụ kiện Apple', NULL, NULL, 1, 8, 1)
+INSERT INTO Categories VALUES (N'Chuột', NULL, NULL, 1, 9, 1)
+INSERT INTO Categories VALUES (N'Bàn nâng hạ', NULL, NULL, 1, 10, 1)
+INSERT INTO Categories VALUES (N'Balo, Túi', NULL, NULL, 1, 11, 1)
+INSERT INTO Categories VALUES (N'Cổng chuyển', NULL, NULL, 1, 12, 1)
+INSERT INTO Categories VALUES (N'Đế tản nhiệt', NULL, NULL, 1, 13, 1)
+INSERT INTO Categories VALUES (N'Ổ cứng', NULL, NULL, 1, 14, 1)
+INSERT INTO Categories VALUES (N'RAM', NULL, NULL, 1, 15, 1)
+INSERT INTO Categories VALUES (N'Phần mềm', NULL, NULL, 1, 16, 1)
+INSERT INTO Categories VALUES (N'Case máy tính', NULL, NULL, 1, 17, 1)
+INSERT INTO Categories VALUES (N'PC', NULL, NULL, 1, 18, 1)
+INSERT INTO Categories VALUES (N'CPU', NULL, NULL, 1, 19, 1)
+
+INSERT INTO Categories VALUES ('Lenovo', NULL, 1, 2, 20, 1)
+INSERT INTO Categories VALUES ('Razer', NULL, 1, 2, 21, 1)
+INSERT INTO Categories VALUES ('Apple', NULL, 1, 2, 22, 1)
+
+INSERT INTO Categories VALUES ('ViewSonic', NULL, 2, 2, 23, 1)
+INSERT INTO Categories VALUES ('LG', NULL, 2, 2, 24, 1)
+INSERT INTO Categories VALUES ('Lenovo', NULL, 2, 2, 25, 1)
+
+INSERT INTO Categories VALUES ('Epione', NULL, 3, 2, 26, 1)
+INSERT INTO Categories VALUES ('Humanmotion', NULL, 3, 2, 27, 1)
+INSERT INTO Categories VALUES ('HyperWork', NULL, 3, 2, 28, 1)
+
+INSERT INTO Categories VALUES ('Marshall', NULL, 4, 2, 29, 1)	
+INSERT INTO Categories VALUES ('Bose', NULL, 4, 2, 30, 1)
+INSERT INTO Categories VALUES ('Harman Kardon', NULL, 4, 2, 31, 1)
+INSERT INTO Categories VALUES ('JBL', NULL, 4, 2, 32, 1)
+
+
+    INSERT INTO Products VALUES (N'Lenovo Legion 5 Pro 2022', NULL, 1, 37990000, 0, 'lenovo-legion-5-pro-2022.png', NULL, NULL, NULL, 1, 1, 1, 'legion, lenovo, 5 pro', 20)
+    INSERT INTO Products VALUES (N'Lenovo ThinkPad X1 Carbon Gen 10', NULL, 1, 36990000, 0, 'lenovo-thinkpad-x1-carbon-gen-10.png', NULL, NULL, NULL, 1, 1, 1, 'lenovo, thinkpad, x1, carbon, gen 10', 10) 
+    INSERT INTO Products VALUES (N'Lenovo ThinkPad X1 Nano', NULL, 1, 39990000, 0, 'lenovo-thinkpad-x1-nano.png', NULL, NULL, NULL, 0, 1, 1, 'lenovo thinkpad x1 nano', 16)
+    INSERT INTO Products VALUES (N'Lenovo ThinkPad P1 Gen 2', NULL, 1, 23990000, 0, 'lenovo-thinkpad-p1-gen-2.png', NULL, NULL, NULL, 0, 0, 1, 'lenovo thinkpad p1', 16)
+    INSERT INTO Products VALUES (N'Lenovo ThinkPad T14s Gen 2', NULL, 1, 27990000, 0, 'lenovo-thinkpad-t14s-gen-2.png', NULL, NULL, NULL, 1, 1, 1, 'lenovo thinkpad t14s', 16)
+    INSERT INTO Products VALUES (N'Lenovo Yoga Slim 7i 14', NULL, 1, 19990000, 0, 'lenovo-yoga-slim-7i-14.png', NULL, NULL, NULL, 1, 1, 1, 'lenovo yoga slim 7i 14', 16)
+    INSERT INTO Products VALUES (N'Razer Blade 14 AMD (RZ09-0370BEA3-R3U1)', NULL, 1, 49990000, 0, 'razer-blade-14-amd.png', NULL, NULL, NULL, 0, 0, 1, 'razer blade', 14)
+    INSERT INTO Products VALUES (N'Razer Book 13', NULL, 1, 59990000, 0, 'razer-book-13.png', NULL, NULL, NULL, 0, 0, 1, 'razer blade', 14)
+    INSERT INTO Products VALUES (N'Razer Blade 15 Advanced', NULL, 1, 39990000, 0, 'razer-blade-15-advanced.png', NULL, NULL, NULL, 0, 0, 1, 'razer blade 15', 14)
+    INSERT INTO Products VALUES (N'Razer Blade 15 Base Edition', NULL, 1, 29990000, 0, 'razer-blade-15-base-edition.png', NULL, NULL, NULL, 1, 1, 1, 'razer blade 15 base', 14)
+    INSERT INTO Products VALUES (N'Razer Blade 15 2022', NULL, 1, 39490000, 0, 'razer-blade-15-2022.png', NULL, NULL, NULL, 0, 0, 1, 'razer blade 15 2022', 14)
+    INSERT INTO Products VALUES (N'Razer Blade 17 2022', NULL, 1, 69990000, 0, 'razer-blade-17-2022.png', NULL, NULL, NULL, 0, 0, 1, 'razer blade 17 2022', 14)
+    INSERT INTO Products VALUES (N'Razer Blade Stealth 13', NULL, 1, 59490000, 0, 'razer-blade-stealth-13.png', NULL, NULL, NULL, 0, 0, 1, 'razer blade stealth 13', 14)
+    INSERT INTO Products VALUES (N'Razer Blade 15 Advanced', NULL, 1, 49590000, 0, 'razer-blade-15-advanced.png', NULL, NULL, NULL, 0, 0, 1, 'razer blade 15 advanced', 14)
+    INSERT INTO PRODUCTS VALUES ('Apple Macbook Air M1 2020', NULL, 1, 24990000, 0, 'apple-macbook-air-m1-2020.png', NULL, NULL, NULL, 1, 1, 1, 'mac air m1', 20)
+    INSERT INTO PRODUCTS VALUES ('Apple Macbook Pro M1 2020', NULL, 1, 29990000, 0, 'apple-macbook-pro-m1-2020.png', NULL, NULL, NULL, 1, 1, 1, 'mac pro m1', 20)
+    INSERT INTO PRODUCTS VALUES ('Apple Macbook Pro M1 16', NULL, 1, 39990000, 0, 'apple-macbook-pro-m1-16.png', NULL, NULL, NULL, 0, 1, 1, 'mac pro m1 16', 16)
+    INSERT INTO PRODUCTS VALUES ('Apple Macbook Pro M1 14', NULL, 1, 24990000, 0, 'apple-macbook-pro-m1-14.png', NULL, NULL, NULL, 1, 1, 1, 'mac air m1 14', 14)
+    INSERT INTO PRODUCTS VALUES ('Apple Macbook Air 2020', NULL, 1, 19990000, 0, 'apple-macbook-air-2020.png', NULL, NULL, NULL,  0, 0, 0, 'mac air 2020', 20)
+    INSERT INTO PRODUCTS VALUES ('Apple Macbook Pro 2020', NULL, 1, 23990000, 0, 'apple-macbook-pro-2020.png', NULL, NULL, NULL, 0, 0, 0, 'mac pro 2020', 20)
+
+    INSERT INTO PRODUCTS VALUES (N'Màn hình Cooler Master 27 inch', NULL, 2, 8990000, 0, 'man-hinh-cooler-master-27-inch.png', NULL, NULL, NULL, 0, 0, 1, NULL, 27)
+    INSERT INTO PRODUCTS VALUES (N'Màn hình Dell S2421H', NULL, 2, 4990000, 0, 'man-hinh-dell-s2421h.png', NULL, NULL, NULL, 0, 0, 1, NULL, 24)
+    INSERT INTO PRODUCTS VALUES (N'Màn hình Viewsonic VA3456-MHDJ', NULL, 2, 9790000, 0, 'man-hinh-viewsonic-va3456-mhdj.png', NULL, NULL, NULL, 0, 0, 1, NULL, 34)
+    INSERT INTO PRODUCTS VALUES (N'Màn hình chuyên đồ hoạ ViewSonic VG2755-2K', NULL, 2, 8990000, 0, 'man-hinh-chuyen-do-hoa-viewsonic-vg2775-2k.png', NULL, NULL, NULL, 0, 0, 1, NULL, 27)
+
+UPDATE PRODUCTS
+SET DateCreated = CURRENT_TIMESTAMP
+, DateModified = CURRENT_TIMESTAMP
+
+
+
+INSERT INTO Customers VALUES (N'Phước Phạm', '22/04/2002', NULL, 'Bến Tre', 'ngiap@gmail.com', '062-336-0961', NULL, 1, 1)
+INSERT INTO Customers VALUES (N'Phụng Ngọc', '23/08/2000', NULL, 'Đà Nẵng', 'doanchi123@gmail.com', '092-628-5936', NULL, 1, 2)
+INSERT INTO Customers VALUES (N'Đăng Hữu', '12/01/2005', NULL, 'Hồ Chí Minh', 'vinh.lieup@gmail.com', '038-440-9926', NULL, 1, 3)
+
+
+INSERT INTO TransactStatus VALUES (N'Chờ xác nhận', NULL)
+INSERT INTO TransactStatus VALUES (N'Chờ lấy hàng', NULL)
+INSERT INTO TransactStatus VALUES (N'Đang giao', NULL)
+INSERT INTO TransactStatus VALUES (N'Giao thành công', NULL)
+INSERT INTO TransactStatus VALUES (N'Hoàn tiền', NULL)
+
+INSERT INTO OrderDetails VALUES (1, 1, 1, 1, 0, 66990000, NULL)
+INSERT INTO OrderDetails VALUES (2, 2, 2, 1, 0, 4990000, NULL)
+INSERT INTO OrderDetails VALUES (3, 3, 3, 2, 600000, 2980000, NULL)	
+
+INSERT INTO Orders VALUES (1, '6/11/2022', 1, 0, 0, NULL, NULL, NULL)
+INSERT INTO Orders VALUES (2, '5/11/2022', 2, 0, 0, NULL, NULL, NULL)
+INSERT INTO Orders VALUES (3, '3/11/2022', 4, 0, 1, '3/11/2022', 1, NULL)
+
+INSERT INTO Staffs VALUES (N'Bích Phương', '19/02/1999', NULL, N'Cần Thơ', 'tquach@gmail.com', '084-089-5499', 4, NULL, 1)
+INSERT INTO Staffs VALUES (N'Lâm Quang', '20/06/2003', NULL, N'Vũng Tàu', 'vong.anh@gmail.com', '090-241-0532', 5, NULL, 1)
+
+INSERT INTO Posts VALUES (N'Cách lấy lại mật khẩu', NULL, NULL, 4, NULL, N'Bích Phương', '#matkhau', 1, 0, 1000000)
+INSERT INTO Posts VALUES (N'Cách áp dụng mã khuyến mãi', NULL, NULL, 5, NULL, N'Lâm Quang', '#makhuyenmai', 1, 1, 5000000)
+
+INSERT INTO Payments VALUES (N'Thanh toán đơn hàng 1', NULL)
+
+
