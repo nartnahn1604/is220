@@ -27,13 +27,17 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
         public async Task<IActionResult> Index(int? page)
         {
 
-            ViewData["Cats"] = new SelectList(_context.Categories, "CatId", "CatName");
+            List<Category> _cats = _context.Categories.Where(cat => cat.ParentId == null).ToList();
+            List<string> _catName = new List<string>();
+            foreach (Category c in _cats)
+                _catName.Add(c.CatName);
+            ViewData["Cats"] = new SelectList(_catName);
             IEnumerable<string> _status = new string[] { "Còn hàng", "Hết hàng" };
             ViewData["isInStock"] = new SelectList(_status);
 
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
             var pageSize = 20;
-            var lsProducts = _context.Products.AsNoTracking().OrderByDescending(x => x.CatId);
+            var lsProducts = _context.Products.AsNoTracking().OrderBy(x => x.ProductId);
             PagedList<Product> models = new PagedList<Product>(lsProducts, pageNumber, pageSize);
             ViewBag.CurrentPage = pageNumber;
             //var dbFrameContext = _context.Customers.Include(c => c.Account);
@@ -62,7 +66,13 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
         // GET: Admin/AdminProducts/Create
         public IActionResult Create()
         {
-            ViewData["Cats"] = new SelectList(_context.Categories, "CatId", "CatName");
+            List<Category> _cats = _context.Categories.Where(cat => cat.ParentId == null).ToList();
+            List<string> _catName = new List<string>();
+            foreach (Category c in _cats)
+                _catName.Add(c.CatName);
+            ViewData["Cats"] = new SelectList(_catName);
+            IEnumerable<string> _status = new string[] { "Còn hàng", "Hết hàng" };
+            ViewData["isInStock"] = new SelectList(_status);
             return View();
         }
 
@@ -79,7 +89,11 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Cats"] = new SelectList(_context.Categories, "CatId", "CatName", product.CatId);
+            List<Category> _cats = _context.Categories.Where(cat => cat.ParentId == null).ToList();
+            List<string> _catName = new List<string>();
+            foreach (Category c in _cats)
+                _catName.Add(c.CatName);
+            ViewData["Cats"] = new SelectList(_catName, product.CatId);
             return View(product);
         }
 
@@ -96,7 +110,11 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["Cats"] = new SelectList(_context.Categories, "CatId", "CatName", product.CatId);
+            List<Category> _cats = _context.Categories.Where(cat => cat.ParentId == null).ToList();
+            List<string> _catName = new List<string>();
+            foreach (Category c in _cats)
+                _catName.Add(c.CatName);
+            ViewData["Cats"] = new SelectList(_catName, product.CatId);
             return View(product);
         }
 
@@ -132,7 +150,11 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Cats"] = new SelectList(_context.Categories, "CatId", "CatName", product.CatId);
+            List<Category> _cats = _context.Categories.Where(cat => cat.ParentId == null).ToList();
+            List<string> _catName = new List<string>();
+            foreach (Category c in _cats)
+                _catName.Add(c.CatName);
+            ViewData["Cats"] = new SelectList(_catName,product.CatId);
             return View(product);
         }
 
