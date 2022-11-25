@@ -2,7 +2,7 @@
 	<div class="side-nav-inner">
         <ul class="side-nav-menu scrollable">
             <li class="nav-item">
-                <a class="dropdown-toggle" asp-area="Admin" aasp-controller="Home" asp-action="Index">
+                <a class="dropdown-toggle" asp-area="Admin" asp-controller="Home" asp-action="Index">
                     <span class="icon-holder">
                         <i class="anticon anticon-dashboard"></i>
                     </span>
@@ -87,7 +87,7 @@
                         <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index">Danh sách sản phẩm</a>
                     </li>
                     <li>
-                        <a>Phân loại</a>
+                        <a asp-area="Admin" asp-controller="AdminCategories" asp-action="Index">Phân loại</a>
                     </li>
                 </ul>
             </li>
