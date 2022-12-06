@@ -24,7 +24,6 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminProducts
-<<<<<<< HEAD
         public async Task<IActionResult> Index(int? page, int catID = 0, int statusID = 1)
         {
 
@@ -32,15 +31,6 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
             //List<string> _catName = new List<string>();
             //foreach (Category c in _cats)
             //    _catName.Add(c.CatName);
-=======
-        public async Task<IActionResult> Index(int? page, int catID = 0, int statusID = 0)
-        {
-
-            List<Category> _cats = _context.Categories.Where(cat => cat.ParentId == null).ToList();
-            List<string> _catName = new List<string>();
-            foreach (Category c in _cats)
-                _catName.Add(c.CatName);
->>>>>>> is220/hum4nnud3
             List<string> _status = new List<string> { "Còn hàng", "Hết hàng" };
 
             var pageNumber = page == null || page <= 0 ? 1 : page.Value;
@@ -56,39 +46,22 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
                     lsProducts = _context.Products.AsNoTracking().Where(p => p.CatId == catID).Include(p => p.Cat).OrderBy(p => p.ProductId).ToList();
             else
                 if (statusID != 0)
-<<<<<<< HEAD
                 if (statusID == 1)
                     lsProducts = _context.Products.AsNoTracking().Where(p => p.UnitsInStock > 0).Include(p => p.Cat).OrderBy(p => p.ProductId).ToList();
                 else
                     lsProducts = _context.Products.AsNoTracking().Where(p => p.UnitsInStock == 0).Include(p => p.Cat).OrderBy(p => p.ProductId).ToList();
             else
                 lsProducts = _context.Products.AsNoTracking().Include(p => p.Cat).OrderBy(p => p.ProductId).ToList();
-=======
-                    if (statusID == 1)
-                        lsProducts = _context.Products.AsNoTracking().Where(p => p.UnitsInStock > 0).Include(p => p.Cat).OrderBy(p => p.ProductId).ToList();
-                    else
-                        lsProducts = _context.Products.AsNoTracking().Where(p => p.UnitsInStock == 0).Include(p => p.Cat).OrderBy(p => p.ProductId).ToList();
-                else
-                    lsProducts = _context.Products.AsNoTracking().Include(p => p.Cat).OrderBy(p => p.ProductId).ToList();
->>>>>>> is220/hum4nnud3
             PagedList<Product> models = new PagedList<Product>(lsProducts.AsQueryable(), pageNumber, pageSize);
             ViewBag.CurrentCateID = catID;
             ViewBag.isActive = statusID;
             ViewBag.CurrentPage = pageNumber;
-<<<<<<< HEAD
             ViewData["Cats"] = new SelectList(_context.Categories, "CatId", "CatName", catID);
-=======
-            ViewData["Cats"] = new SelectList(_catName, _catName[catID - 1]);
->>>>>>> is220/hum4nnud3
             ViewData["isInStock"] = new SelectList(_status, _status[statusID - 1]);
             //var dbFrameContext = _context.Customers.Include(c => c.Account);
             return View(models);
         }
 
-<<<<<<< HEAD
-=======
-        //[HttpGet("CatID")]
->>>>>>> is220/hum4nnud3
         public async Task<IActionResult> Filter(int catID = 0, int statusID = 0)
         {
             var url = $"/AdminProducts/Index?CatID={catID}&statusID={statusID}";
