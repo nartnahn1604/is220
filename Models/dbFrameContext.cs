@@ -17,6 +17,7 @@ namespace IS220_PROJECT.Models
         }
 
         public virtual DbSet<Account> Accounts { get; set; } = null!;
+        public virtual DbSet<Brand> Brands { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
@@ -59,6 +60,17 @@ namespace IS220_PROJECT.Models
                     .WithMany(p => p.Accounts)
                     .HasForeignKey(d => d.RoleId)
                     .HasConstraintName("FK_Accounts_Roles");
+            });
+
+            modelBuilder.Entity<Brand>(entity =>
+            {
+                entity.ToTable("Brand");
+
+                entity.Property(e => e.BrandId).HasColumnName("BrandID");
+
+                entity.Property(e => e.BrandName).HasMaxLength(50);
+
+                entity.Property(e => e.Icon).HasMaxLength(255);
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -124,7 +136,7 @@ namespace IS220_PROJECT.Models
                 entity.HasOne(d => d.Payment)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.PaymentId)
-                    .HasConstraintName("FK_Orders_Payments");
+                    .HasConstraintName("FK_Orders_Payments1");
 
                 entity.HasOne(d => d.TransactStatus)
                     .WithMany(p => p.Orders)
@@ -188,17 +200,73 @@ namespace IS220_PROJECT.Models
             {
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
+                entity.Property(e => e.BrandId).HasColumnName("BrandID");
+
+                entity.Property(e => e.Capacity)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.CatId).HasColumnName("CatID");
+
+                entity.Property(e => e.Cpu)
+                    .HasMaxLength(10)
+                    .HasColumnName("CPU")
+                    .IsFixedLength();
+
+                entity.Property(e => e.Cpudetail)
+                    .HasMaxLength(255)
+                    .HasColumnName("CPUDetail");
 
                 entity.Property(e => e.DateCreated).HasColumnType("datetime");
 
                 entity.Property(e => e.DateModified).HasColumnType("datetime");
 
+                entity.Property(e => e.Gpu)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("GPU");
+
+                entity.Property(e => e.Gpudetail)
+                    .HasMaxLength(255)
+                    .HasColumnName("GPUDetail");
+
+                entity.Property(e => e.MonitorDetail).HasMaxLength(255);
+
+                entity.Property(e => e.Os)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("OS");
+
                 entity.Property(e => e.ProductName).HasMaxLength(255);
 
-                entity.Property(e => e.Thumb).HasMaxLength(255);
+                entity.Property(e => e.Ram)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("RAM");
 
-                entity.Property(e => e.Video).HasMaxLength(255);
+                entity.Property(e => e.Sku)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("SKU");
+
+                entity.Property(e => e.Thumbnail).HasMaxLength(255);
+
+                entity.Property(e => e.TypeOfGpu)
+                    .HasMaxLength(50)
+                    .HasColumnName("TypeOfGPU");
+
+                entity.Property(e => e.TypeOfHardDrive)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Weight)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Brand)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.BrandId)
+                    .HasConstraintName("FK_Products_Brand");
 
                 entity.HasOne(d => d.Cat)
                     .WithMany(p => p.Products)
