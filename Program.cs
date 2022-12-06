@@ -49,12 +49,12 @@ namespace IS220_PROJECT
                 endpoints.MapAreaControllerRoute(
                     name: "Admin",
                     areaName: "Admin",
-                    pattern: "Admin/{controller=Home}/{action=Index}"
+                    pattern: "{area=Admin}/{controller=Home}/{action=Index}"
                 );
 
                 endpoints.MapControllerRoute(
                     name: "areaRoute",
-                    pattern: "{area:exists}/{controller}/{action}/{id}"
+                    pattern: "{area:exists}/{controller}/{action}/{id?}"
                 );
 
                 endpoints.MapControllerRoute(

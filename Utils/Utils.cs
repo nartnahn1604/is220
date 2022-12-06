@@ -67,7 +67,7 @@ namespace IS220_PROJECT.Utils
             }
             return VNStr;
         }
-        public static async Task<string> UploadFile(Microsoft.AspNetCore.Http.IFormFile file, string sDirectory, string newname = null)
+        public static async Task<string> UploadFile(IFormFile file, string sDirectory, string newname = null)
         {
             try
             {

@@ -11,7 +11,7 @@
         <div class="d-md-flex m-b-15 align-items-center justify-content-between">
             <div class="media align-items-center m-b-15">
                 <div class="avatar avatar-image rounded" style="height: 70px; width: 70px">
-                    <img src="assets/images/others/thumb-16.jpg" alt="">
+                    <img src="~/Admin/images/others/thumb-16.jpg" alt="">
                 </div>
                 <div class="m-l-15">
                     <h4 class="m-b-0">Skinny Men Blazer</h4>
@@ -27,13 +27,13 @@
         </div>
         <ul class="nav nav-tabs" >
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Basic Info</a>
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin cơ bản</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#product-edit-option">Option Info</a>
+                <a class="nav-link" data-toggle="tab" href="#product-edit-option">Thông số kỹ thuật</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#product-edit-description">Description</a>
+                <a class="nav-link" data-toggle="tab" href="#product-edit-description">Mô tả</a>
             </li>
         </ul>
     </div>
@@ -204,3 +204,8 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts{
+    <script src="~/Admin/vendors/select2/select2.min.js"></script>
+    <script src="~/Admin/vendors/quill/quill.min.js"></script>
+    <script src="~/Admin/js/pages/e-commerce-product-edit.js"></script>
+}

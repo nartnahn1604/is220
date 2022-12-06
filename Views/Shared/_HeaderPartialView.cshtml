@@ -3,7 +3,7 @@
                 <div class="row">
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
-                            <a asp-action="Index">
+                            <a asp-controller="Home" asp-action="Index">
                                 <img src="~/assets/images/logo.png" alt="UITPro"/>
                             </a>
                         </div>
@@ -15,9 +15,9 @@
                             </div>
                             <ul>
                                 <li class="menu-item-has-children">
-                                    <a href="javascript:void(0);">Shop</a>
+                                    <a asp-controller="Product" asp-action="Index">Shop</a>
                                     <ul class="sub-menu">
-                                        <li><a asp-action="Laptop">Laptop</a></li>
+                                        <li><a >Laptop</a></li>
                                         <li><a >Màn hình</a></li>
                                         <li><a asp-action="PC">PC</a></li>
                                         <li><a >Thiết bị ngoại vi</a></li>
