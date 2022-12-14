@@ -7,6 +7,7 @@ namespace IS220_PROJECT.Models
     {
         public Product()
         {
+            InputDetails = new HashSet<InputDetail>();
             OrderDetails = new HashSet<OrderDetail>();
         }
 
@@ -35,9 +36,12 @@ namespace IS220_PROJECT.Models
         public bool Active { get; set; }
         public string? Sku { get; set; }
         public int? UnitsInStock { get; set; }
+        public int? SupplierId { get; set; }
 
         public virtual Brand? Brand { get; set; }
         public virtual Category? Cat { get; set; }
+        public virtual Supplier? Supplier { get; set; }
+        public virtual ICollection<InputDetail> InputDetails { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

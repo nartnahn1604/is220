@@ -39,24 +39,25 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
             if (catID != 0)
                 if (statusID != 0)
                     if (statusID == 1)
-                        lsProducts = _context.Products.AsNoTracking().Where(p => p.CatId == catID && p.UnitsInStock > 0).Include(p => p.Cat).OrderBy(p => p.ProductId).ToList();
+                        lsProducts = _context.Products.AsNoTracking().Where(p => p.CatId == catID && p.UnitsInStock > 0).Include(p => p.Cat).Include(p => p.Brand).OrderBy(p => p.ProductId).ToList();
                     else
-                        lsProducts = _context.Products.AsNoTracking().Where(p => p.CatId == catID && p.UnitsInStock == 0).Include(p => p.Cat).OrderBy(p => p.ProductId).ToList();
+                        lsProducts = _context.Products.AsNoTracking().Where(p => p.CatId == catID && p.UnitsInStock == 0).Include(p => p.Cat).Include(p => p.Brand).OrderBy(p => p.ProductId).ToList();
                 else
-                    lsProducts = _context.Products.AsNoTracking().Where(p => p.CatId == catID).Include(p => p.Cat).OrderBy(p => p.ProductId).ToList();
+                    lsProducts = _context.Products.AsNoTracking().Where(p => p.CatId == catID).Include(p => p.Cat).Include(p => p.Brand).OrderBy(p => p.ProductId).ToList();
             else
                 if (statusID != 0)
                 if (statusID == 1)
-                    lsProducts = _context.Products.AsNoTracking().Where(p => p.UnitsInStock > 0).Include(p => p.Cat).OrderBy(p => p.ProductId).ToList();
+                    lsProducts = _context.Products.AsNoTracking().Where(p => p.UnitsInStock > 0).Include(p => p.Cat).Include(p => p.Brand).OrderBy(p => p.ProductId).ToList();
                 else
-                    lsProducts = _context.Products.AsNoTracking().Where(p => p.UnitsInStock == 0).Include(p => p.Cat).OrderBy(p => p.ProductId).ToList();
+                    lsProducts = _context.Products.AsNoTracking().Where(p => p.UnitsInStock == 0).Include(p => p.Cat).Include(p => p.Brand).OrderBy(p => p.ProductId).ToList();
             else
-                lsProducts = _context.Products.AsNoTracking().Include(p => p.Cat).OrderBy(p => p.ProductId).ToList();
+                lsProducts = _context.Products.AsNoTracking().Include(p => p.Cat).Include(p => p.Brand).OrderBy(p => p.ProductId).ToList();
             PagedList<Product> models = new PagedList<Product>(lsProducts.AsQueryable(), pageNumber, pageSize);
             ViewBag.CurrentCateID = catID;
             ViewBag.isActive = statusID;
             ViewBag.CurrentPage = pageNumber;
             ViewData["Cats"] = new SelectList(_context.Categories, "CatId", "CatName", catID);
+            ViewData["Brands"] = new SelectList(_context.Brands, "BrandId", "BrandName");
             ViewData["isInStock"] = new SelectList(_status, _status[statusID - 1]);
             //var dbFrameContext = _context.Customers.Include(c => c.Account);
             return View(models);
@@ -83,7 +84,7 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
             }
 
             var product = await _context.Products
-                .Include(p => p.Cat)
+                .Include(p => p.Cat).Include(p => p.Brand)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
@@ -96,11 +97,16 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
         // GET: Admin/AdminProducts/Create
         public IActionResult Create()
         {
-            List<Category> _cats = _context.Categories.Where(cat => cat.ParentId == null).ToList();
-            List<string> _catName = new List<string>();
-            foreach (Category c in _cats)
-                _catName.Add(c.CatName);
-            ViewData["Cats"] = new SelectList(_catName);
+            //List<Category> _cats = _context.Categories.Where(cat => cat.ParentId == null).ToList();
+            //List<string> _catName = new List<string>();
+            //foreach (Category c in _cats)
+            //    _catName.Add(c.CatName);
+            ViewData["Cats"] = new SelectList(_context.Categories, "CatId", "CatName");
+            //List<Brand> _brands = _context.Brands.ToList();
+            //List<string> _brandName = new List<string>();
+            //foreach (Brand b in _brands)
+            //    _brandName.Add(b.BrandName);
+            ViewData["Brands"] = new SelectList(_context.Brands, "BrandId", "BrandName");
             IEnumerable<string> _status = new string[] { "Còn hàng", "Hết hàng" };
             ViewData["isInStock"] = new SelectList(_status);
             return View();
@@ -123,6 +129,11 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
             List<string> _catName = new List<string>();
             foreach (Category c in _cats)
                 _catName.Add(c.CatName);
+            //var inputPrice = _context.InputDetails.Where(x => x.ProductId == product.ProductId).ToString();
+            //if(inputPrice != null)
+            //    ViewData["inputPrice"] = inputPrice;
+            //else
+            //    ViewData["inputPrice"] = 0;
             ViewData["Cats"] = new SelectList(_catName, product.CatId);
             return View(product);
         }
