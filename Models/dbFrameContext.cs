@@ -20,6 +20,8 @@ namespace IS220_PROJECT.Models
         public virtual DbSet<Brand> Brands { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
+        public virtual DbSet<Input> Inputs { get; set; } = null!;
+        public virtual DbSet<InputDetail> InputDetails { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
         public virtual DbSet<Payment> Payments { get; set; } = null!;
@@ -27,6 +29,7 @@ namespace IS220_PROJECT.Models
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<Staff> Staffs { get; set; } = null!;
+        public virtual DbSet<Supplier> Suppliers { get; set; } = null!;
         public virtual DbSet<TransactStatus> TransactStatuses { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -34,7 +37,7 @@ namespace IS220_PROJECT.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=dbFrame;Integrated Security=true;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-TTM610I;Database=dbFrame;Integrated Security=true;");
             }
         }
 
@@ -112,6 +115,32 @@ namespace IS220_PROJECT.Models
                     .WithMany(p => p.Customers)
                     .HasForeignKey(d => d.AccountId)
                     .HasConstraintName("FK_Customers_Accounts");
+            });
+
+            modelBuilder.Entity<Input>(entity =>
+            {
+                entity.Property(e => e.InputId).HasColumnName("InputID");
+
+                entity.Property(e => e.Date).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<InputDetail>(entity =>
+            {
+                entity.Property(e => e.InputDetailId).HasColumnName("InputDetailID");
+
+                entity.Property(e => e.InputId).HasColumnName("InputID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.HasOne(d => d.Input)
+                    .WithMany(p => p.InputDetails)
+                    .HasForeignKey(d => d.InputId)
+                    .HasConstraintName("FK_InputDetails_Inputs");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.InputDetails)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_InputDetails_Products");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -209,9 +238,8 @@ namespace IS220_PROJECT.Models
                 entity.Property(e => e.CatId).HasColumnName("CatID");
 
                 entity.Property(e => e.Cpu)
-                    .HasMaxLength(10)
-                    .HasColumnName("CPU")
-                    .IsFixedLength();
+                    .HasMaxLength(50)
+                    .HasColumnName("CPU");
 
                 entity.Property(e => e.Cpudetail)
                     .HasMaxLength(255)
@@ -249,6 +277,8 @@ namespace IS220_PROJECT.Models
                     .IsUnicode(false)
                     .HasColumnName("SKU");
 
+                entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
+
                 entity.Property(e => e.Thumbnail).HasMaxLength(255);
 
                 entity.Property(e => e.TypeOfGpu)
@@ -272,6 +302,11 @@ namespace IS220_PROJECT.Models
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CatId)
                     .HasConstraintName("FK_Products_Categories");
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.SupplierId)
+                    .HasConstraintName("FK_Products_Suppliers");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -311,6 +346,19 @@ namespace IS220_PROJECT.Models
                     .WithMany(p => p.staff)
                     .HasForeignKey(d => d.AccountId)
                     .HasConstraintName("FK_Staffs_Accounts");
+            });
+
+            modelBuilder.Entity<Supplier>(entity =>
+            {
+                entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
+
+                entity.Property(e => e.ContractDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Email).HasMaxLength(100);
+
+                entity.Property(e => e.Name).HasMaxLength(100);
+
+                entity.Property(e => e.Phone).HasMaxLength(20);
             });
 
             modelBuilder.Entity<TransactStatus>(entity =>
