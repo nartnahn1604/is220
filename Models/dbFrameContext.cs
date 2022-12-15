@@ -37,7 +37,7 @@ namespace IS220_PROJECT.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-TTM610I;Database=dbFrame;Integrated Security=true;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=dbFrame;Integrated Security=true;");
             }
         }
 
@@ -249,6 +249,10 @@ namespace IS220_PROJECT.Models
 
                 entity.Property(e => e.DateModified).HasColumnType("datetime");
 
+                entity.Property(e => e.Description)
+                    .HasMaxLength(255)
+                    .IsFixedLength();
+
                 entity.Property(e => e.Gpu)
                     .HasMaxLength(50)
                     .IsUnicode(false)
@@ -358,7 +362,7 @@ namespace IS220_PROJECT.Models
 
                 entity.Property(e => e.Name).HasMaxLength(100);
 
-                entity.Property(e => e.Phone).HasMaxLength(20);
+                entity.Property(e => e.Phone).HasMaxLength(50);
             });
 
             modelBuilder.Entity<TransactStatus>(entity =>

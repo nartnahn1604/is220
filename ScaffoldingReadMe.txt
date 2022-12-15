@@ -10,3 +10,5 @@ Add the following code to the Configure method in your Application's Startup cla
             pattern : "{area:exists}/{controller=Home}/{action=Index}/{id?}"
           );
         });
+
+ Scaffold-DbContext "Server=./SQLEXPRESS;Database=dbFrame;Integrated Security=true;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -f

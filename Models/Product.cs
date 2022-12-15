@@ -37,6 +37,7 @@ namespace IS220_PROJECT.Models
         public string? Sku { get; set; }
         public int? UnitsInStock { get; set; }
         public int? SupplierId { get; set; }
+        public string? Description { get; set; }
 
         public virtual Brand? Brand { get; set; }
         public virtual Category? Cat { get; set; }
