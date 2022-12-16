@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace IS220_PROJECT.Models
 {
@@ -37,7 +34,7 @@ namespace IS220_PROJECT.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=dbFrame;Integrated Security=true;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-TTM610I;Database=dbFrame;Integrated Security=true;");
             }
         }
 
@@ -136,11 +133,6 @@ namespace IS220_PROJECT.Models
                     .WithMany(p => p.InputDetails)
                     .HasForeignKey(d => d.InputId)
                     .HasConstraintName("FK_InputDetails_Inputs");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.InputDetails)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_InputDetails_Products");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -262,6 +254,8 @@ namespace IS220_PROJECT.Models
                     .HasMaxLength(255)
                     .HasColumnName("GPUDetail");
 
+                entity.Property(e => e.InputDetailId).HasColumnName("InputDetailID");
+
                 entity.Property(e => e.MonitorDetail).HasMaxLength(255);
 
                 entity.Property(e => e.Os)
@@ -306,6 +300,11 @@ namespace IS220_PROJECT.Models
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CatId)
                     .HasConstraintName("FK_Products_Categories");
+
+                entity.HasOne(d => d.InputDetail)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.InputDetailId)
+                    .HasConstraintName("FK_Products_InputDetails");
 
                 entity.HasOne(d => d.Supplier)
                     .WithMany(p => p.Products)
@@ -362,7 +361,7 @@ namespace IS220_PROJECT.Models
 
                 entity.Property(e => e.Name).HasMaxLength(100);
 
-                entity.Property(e => e.Phone).HasMaxLength(50);
+                entity.Property(e => e.Phone).HasMaxLength(100);
             });
 
             modelBuilder.Entity<TransactStatus>(entity =>

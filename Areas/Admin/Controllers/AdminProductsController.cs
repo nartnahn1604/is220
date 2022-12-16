@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IS220_PROJECT.Models;
@@ -89,7 +85,7 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
             }
 
             var product = await _context.Products
-                .Include(p => p.Cat).Include(p => p.Brand).Include(p => p.Supplier)
+                .Include(p => p.Cat).Include(p => p.Brand).Include(p => p.Supplier).Include(p => p.InputDetail)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
@@ -115,33 +111,45 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,CatId,BrandId,ProductName,Cpu,Cpudetail,Ram,TypeOfHardDrive,Capacity,TypeOfGpu,Gpu,Gpudetail,Os,MonitorDetail,Size,Weight,Price,Thumbnail,DateCreated,DateModified,BestSellers,HomeFlag,Active,Sku,UnitsInStock,SupplierId,Description")] Product product, Microsoft.AspNetCore.Http.IFormFile fthumb)
+        public async Task<IActionResult> Create([Bind("ProductId,CatId,BrandId,ProductName,Cpu,Cpudetail,Ram,TypeOfHardDrive,Capacity,TypeOfGpu,Gpu,Gpudetail,Os,MonitorDetail,Size,Weight,Price,Thumbnail,DateCreated,DateModified,BestSellers,HomeFlag,Active,Sku,UnitsInStock,SupplierId,Description")] Product product, [FromForm(Name = "fileThumb")] IFormFile fileThumb)
         {
-            Debug.WriteLine("Start");
-            Debug.WriteLine(product.CatId + " - " + product.BrandId);
-            if (ModelState.IsValid)
+            try
             {
-                Debug.WriteLine("success");
-                product.ProductName = Utils.Utils.ToTitleCase(product.ProductName);
-
-                if(fthumb != null)
+                var errors = ModelState
+                            .Where(x => x.Value.Errors.Count > 0)
+                            .Select(x => new { x.Key, x.Value.Errors })
+                            .ToArray();
+                //fThumb = product.Thumbnail;
+                if (ModelState.IsValid)
                 {
-                    string extension = Path.GetExtension(fthumb.FileName);
-                    string img = Utils.Utils.formatVNString(fthumb.FileName) + extension;
-                    product.Thumbnail = await Utils.Utils.UploadFile(fthumb, @"products", img.ToLower());
+                    //Debug.WriteLine("success");
+                    product.ProductName = Utils.Utils.ToTitleCase(product.ProductName);
+                    product.UnitsInStock = 0;
+                    if(fileThumb != null)
+                    {
+                        string extension = Path.GetExtension(fileThumb.FileName);
+                        string img = Utils.Utils.formatVNString(fileThumb.FileName);
+                        product.Thumbnail = await Utils.Utils.UploadFile(fileThumb, @"products", img.ToLower());
+                    }
+                    if (string.IsNullOrEmpty(product.Thumbnail))
+                        product.Thumbnail = "default.png";
+                    product.DateCreated = DateTime.Now;
+                    product.DateModified = DateTime.Now;
+
+                    _context.Add(product);
+                    await _context.SaveChangesAsync();
+                    _notyfService.Success("Tạo mới thành công");
+                    return RedirectToAction(nameof(Index));
                 }
-                if (string.IsNullOrEmpty(product.Thumbnail))
-                    product.Thumbnail = "default.png";
-                product.DateCreated = DateTime.Now;
-                product.DateModified = DateTime.Now;
+                else
+                    _notyfService.Error("Tạo mới thất bại");
 
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                _notyfService.Success("Tạo mới thành công");
-                return RedirectToAction(nameof(Index));
+
             }
-
-            ViewData["Cats"] = new SelectList(_context.Categories, "CatId", "CatName");
+            catch (InvalidDataException e)
+            {                             
+                _notyfService.Success(e.ToString());
+            }
             return View(product);
         }
 
@@ -158,11 +166,12 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+
             List<Category> _cats = _context.Categories.Where(cat => cat.ParentId == null).ToList();
-            List<string> _catName = new List<string>();
-            foreach (Category c in _cats)
-                _catName.Add(c.CatName);
-            ViewData["Cats"] = new SelectList(_catName, product.CatId);
+
+            ViewData["Cats"] = new SelectList(_context.Categories, "CatId", "CatName", product.CatId);
+            ViewData["Brands"] = new SelectList(_context.Brands, "BrandId", "BrandName", product.BrandId);
+            ViewData["Suppliers"] = new SelectList(_context.Suppliers, "SupplierId", "Name", product.SupplierId);
             return View(product);
         }
 
@@ -171,30 +180,33 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,CatId,BrandId,ProductName,Cpu,Cpudetail,Ram,TypeOfHardDrive,Capacity,TypeOfGpu,Gpu,Gpudetail,Os,MonitorDetail,Size,Weight,Price,Thumbnail,DateCreated,DateModified,BestSellers,HomeFlag,Active,Sku,UnitsInStock,SupplierId,Description")] Product product, Microsoft.AspNetCore.Http.IFormFile fthumb)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,CatId,BrandId,ProductName,Cpu,Cpudetail,Ram,TypeOfHardDrive,Capacity,TypeOfGpu,Gpu,Gpudetail,Os,MonitorDetail,Size,Weight,Price,Thumbnail,DateCreated,DateModified,BestSellers,HomeFlag,Active,Sku,UnitsInStock,SupplierId,Description")] Product product, [FromForm(Name = "fileThumb")] IFormFile? fileThumb)
         {
             if (id != product.ProductId)
             {
                 return NotFound();
             }
-
+            var errors = ModelState
+                            .Where(x => x.Value.Errors.Count > 0)
+                            .Select(x => new { x.Key, x.Value.Errors })
+                            .ToArray();
             if (ModelState.IsValid)
             {
                 try
                 {
                     product.ProductName = Utils.Utils.ToTitleCase(product.ProductName);
-                    if (fthumb != null)
+                    if (fileThumb != null)
                     {
-                        string extension = Path.GetExtension(fthumb.FileName);
-                        string img = Utils.Utils.formatVNString(fthumb.FileName) + extension;
-                        product.Thumbnail = await Utils.Utils.UploadFile(fthumb, @"products", img.ToLower());
+                        string extension = Path.GetExtension(fileThumb.FileName);
+                        string img = Utils.Utils.formatVNString(fileThumb.FileName);
+                        product.Thumbnail = await Utils.Utils.UploadFile(fileThumb, @"products", img.ToLower());
                     }
                     if (string.IsNullOrEmpty(product.Thumbnail))
                         product.Thumbnail = "default.png";
-                    product.DateCreated = DateTime.Now;
                     product.DateModified = DateTime.Now;
                     _context.Update(product);
                     await _context.SaveChangesAsync();
+                    _notyfService.Success("Sửa thành công");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -207,13 +219,13 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            List<Category> _cats = _context.Categories.Where(cat => cat.ParentId == null).ToList();
-            List<string> _catName = new List<string>();
-            foreach (Category c in _cats)
-                _catName.Add(c.CatName);
-            ViewData["Cats"] = new SelectList(_catName, product.CatId);
+            ViewData["Cats"] = new SelectList(_context.Categories, "CatId", "CatName", product.CatId);
+            ViewData["Brands"] = new SelectList(_context.Brands, "BrandId", "BrandName", product.BrandId);
+            ViewData["Suppliers"] = new SelectList(_context.Suppliers, "SupplierId", "Name", product.SupplierId);
+            _notyfService.Error("Thất bại");
             return View(product);
         }
 
@@ -243,6 +255,7 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
         {
             if (_context.Products == null)
             {
+                _notyfService.Error("Xóa thất bại");
                 return Problem("Entity set 'dbFrameContext.Products'  is null.");
             }
             var product = await _context.Products.FindAsync(id);
@@ -252,6 +265,8 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
             }
 
             await _context.SaveChangesAsync();
+            _notyfService.Success("Xóa thành công");
+
             return RedirectToAction(nameof(Index));
         }
 
