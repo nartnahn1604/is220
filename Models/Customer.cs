@@ -18,6 +18,7 @@ namespace IS220_PROJECT.Models
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public DateTime? CreateDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
         public bool Active { get; set; }
         public int? AccountId { get; set; }
 

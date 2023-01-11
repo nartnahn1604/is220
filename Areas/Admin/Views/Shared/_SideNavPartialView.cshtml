@@ -1,76 +1,21 @@
 ﻿<div class="side-nav">
 	<div class="side-nav-inner">
         <ul class="side-nav-menu scrollable">
-            <li class="nav-item">
+            <li class="nav-item dropdown">
                 <a class="dropdown-toggle" asp-area="Admin" asp-controller="Home" asp-action="Index">
                     <span class="icon-holder">
                         <i class="anticon anticon-dashboard"></i>
                     </span>
                     <span class="title">Dashboard</span>
-                    <span class="arrow">
-                        <i class="arrow-icon"></i>
-                    </span>
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a class="dropdown-toggle" href="javascript:void(0);">
+                <a class="dropdown-toggle" asp-controller="AdminOrders" asp-action="Index">
                     <span class="icon-holder">
                         <i class="anticon anticon-appstore"></i>
                     </span>
-                    <span class="title">Quản lý bán hàng</span>
-                    <span class="arrow">
-                        <i class="arrow-icon"></i>
-                    </span>
+                    <span class="title">Quản lý đặt hàng</span>
                 </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="app-chat.html">Chat</a>
-                    </li>
-                    <li>
-                        <a href="app-file-manager.html">File Manager</a>
-                    </li>
-                    <li>
-                        <a href="app-mail.html">Mail</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0);">
-                            <span>Projects</span>
-                            <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="app-project-list.html">Project List</a>
-                            </li>
-                            <li>
-                                <a href="app-project-details.html">Project Details</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0);">
-                            <span>E-commerce</span>
-                            <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="app-e-commerce-order-list.html">Orders List</a>
-                            </li>
-                            <li>
-                                <a href="app-e-commerce-products.html">Products</a>
-                            </li>
-                            <li>
-                                <a href="app-e-commerce-products-list.html">Products List</a>
-                            </li>
-                            <li>
-                                <a href="app-e-commerce-products-edit.html">Products Edit</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
@@ -86,8 +31,29 @@
                     <li>
                         <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index">Danh sách sản phẩm</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a href="javascript:void(0);">
+                            <span>Quản lý phân loại</span>
+                            <span class="arrow">
+                                <i class="arrow-icon"></i>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a asp-area="Admin" asp-controller="AdminCategories" asp-action="Index">Danh mục</a>
+                            </li>
+                            <li>
+                                <a asp-area="Admin" asp-controller="AdminBrands" asp-action="Index">Thương hiệu</a>
+                            </li>
+                            <li>
+                                <a asp-area="Admin" asp-controller="AdminSuppliers" asp-action="Index">Nhà cung cấp</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li>
-                        <a asp-area="Admin" asp-controller="AdminCategories" asp-action="Index">Phân loại</a>
+                    </li>
+                    <li>
+                        <a asp-area="Admin" asp-controller="AdminInputs" asp-action="Index">Quản lý nhập hàng</a>
                     </li>
                 </ul>
             </li>
@@ -106,17 +72,14 @@
                         <a asp-area="Admin" asp-controller="AdminAccounts" asp-action="Index">Quản lý tài khoản</a>
                     </li>
                     <li>
-                        <a href="accordion.html">Quản lý danh mục</a>
-                    </li>
-                    <li>
                         <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Index">Quản lý quyền truy cập</a>
                     </li>
                     <li>
-                        <a href="dropdown.html">Quản lý Tỉnh/Thành</a>
-                    </li>
+                        <a asp-area="Admin" asp-controller="AdminStaffs" asp-action="Index">Quản lý nhân viên</a>
+                    </li> 
                 </ul>
             </li>
-            <li class="nav-item">
+            <li class="nav-item dropdown">
                 <a asp-area="Admin" asp-controller="AdminCustomers" asp-action="Index">
                     <span class="icon-holder">
                         <i class="anticon anticon-form"></i>
@@ -130,67 +93,9 @@
                         <i class="anticon anticon-table"></i>
                     </span>
                     <span class="title">Doanh số</span>
-                    <span class="arrow">
-                        <i class="arrow-icon"></i>
-                    </span>
                 </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="basic-table.html">Basic Table</a>
-                    </li>
-                    <li>
-                        <a href="data-table.html">Data Table</a>
-                    </li>
-                </ul>
             </li>
            
-            <li class="nav-item dropdown">
-                <a class="dropdown-toggle" href="javascript:void(0);">
-                    <span class="icon-holder">
-                        <i class="anticon anticon-file"></i>
-                    </span>
-                    <span class="title">Quản lý Pages</span>
-                    <span class="arrow">
-                        <i class="arrow-icon"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="profile.html">Profile</a>
-                    </li>
-                    <li>
-                        <a href="invoice.html">Invoice</a>
-                    </li>
-                    <li>
-                        <a href="members.html">Members</a>
-                    </li>
-                    <li>
-                        <a href="pricing.html">Pricing</a>
-                    </li>
-                    <li>
-                        <a href="setting.html">Setting</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0);">
-                            <span>Blog</span>
-                            <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="blog-grid.html">Blog Grid</a>
-                            </li>
-                            <li>
-                                <a href="blog-list.html">Blog List</a>
-                            </li>
-                            <li>
-                                <a href="blog-post.html">Blog Post</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
         </ul>
     </div>
 </div>

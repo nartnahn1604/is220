@@ -28,30 +28,30 @@
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
                                     <div class="ps-img">
-                                        <img src="~/assets/images/shop/single-product.jpg" alt="">
+                                        <img src="~/images/products/@Model.Thumbnail" alt="">
                                     </div>
                                 </div>
                                 <div class="carousel-item">
                                     <div class="ps-img">
-                                        <img src="~/assets/images/shop/single-product.jpg" alt="">
+                                        <img src="~/images/products/@Model.Thumbnail" alt="">
                                     </div>
                                 </div>
                                 <div class="carousel-item">
                                     <div class="ps-img">
-                                        <img src="~/assets/images/shop/single-product.jpg" alt="">
+                                        <img src="~/images/products/@Model.Thumbnail" alt="">
                                     </div>
                                 </div>
                             </div>
                             <ol class="carousel-indicators clearfix">
-                                <li data-target="#product-slider" data-slide-to="0" class="active"><img src="~/assets/images/shop/s1.png" alt=""></li>
-                                <li data-target="#product-slider" data-slide-to="1"><img src="~/assets/images/shop/s2.png" alt=""></li>
-                                <li data-target="#product-slider" data-slide-to="2"><img src="~/assets/images/shop/s2.png" alt=""></li>
+                                <li data-target="#product-slider" data-slide-to="0" class="active"><img src="~/images/products/@Model.Thumbnail" alt=""></li>
+                                <li data-target="#product-slider" data-slide-to="1"><img src="~/images/products/@Model.Thumbnail" alt=""></li>
+                                <li data-target="#product-slider" data-slide-to="2"><img src="~/images/products/@Model.Thumbnail" alt=""></li>
                             </ol>
                         </div>
                     </div>
                     <div class="col-lg-5 col-md-12">
                         <div class="sin-product-details">
-                            <h3>Gaming Controller</h3>
+                            <h3>@Model.ProductName</h3>
                             <div class="woocommerce-product-rating">
                                 <div class="star-rating">
                                     <i class="twi-star"></i>
@@ -62,53 +62,79 @@
                                         <i class="twi-star"></i>
                                     </span>
                                 </div>
-                                <a href="#" class="woocommerce-review-link"><span class="count">03</span> customer reviews
+                                <a href="#" class="woocommerce-review-link"><span class="count">03</span> đánh giá
                                 </a>
                             </div>
                             <div class="product-price clearfix">
                                 <span class="price">
-                                    <span><span class="woocommerce-Price-currencySymbol">$</span>999.00</span>
+                                    <span>@Model.Price.Value.ToString("#,##")<span class="woocommerce-Price-currencySymbol">VNĐ</span></span>
                                 </span>         
                             </div>
                             <div class="pro-excerp">
                                 <p>
-                                    Sed id interdum urna. Nam ac elit a ante commodo tristique. tum vehicula a hendrerit ac nisi. hendrerit ac nisi Lorem ipsum dolor sit perdiet nibh vel magna lacinia ultrices. Sed id interdum urna.
+                                    @if(@Model.Description != null){
+                                        @Model.Description
+                                    }
+                                    else{
+                                        <div>Mô tả sản phẩm</div>
+                                    }
                                 </p>
                             </div>
                             <div class="product-color">
-                                <h5>Color</h5>
+                                <h5>Màu sắc</h5>
                                 <div class="color-1"></div>
                                 <div class="color-2"></div>
                                 <div class="color-3"></div>
                             </div>
                             <div class="product-size">
-                                <h5>Size:</h5>
-                                <div class="size-wrapper">
-                                    <div class="size-btn clearfix">
-                                        <input type="radio" id="x" name="size" value="x">
-                                        <label for="x">x</label>  
+                                @if(@Model.CatId == 1){
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <h5 style="display: inline-block;">Ram:</h5>
+                                            <span>@Model.Ram</span>
+                                        </div>
+                                        <div class="col-7">
+                                            <h5 style="display: inline-block;">CPU:</h5>
+                                            <span>@Model.Cpudetail</span>
+                                        </div>
                                     </div>
-                                    <div class="size-btn clearfix">
-                                        <input type="radio" id="xr" name="size" value="xr">
-                                        <label for="xr">XR</label>    
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5 style="display: inline-block;">Ổ cứng:</h5>
+                                            <span>@Model.TypeOfHardDrive - @Model.Capacity</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <h5 style="display: inline-block;">GPU:</h5>
+                                            <span>@Model.TypeOfGpu - @Model.Gpudetail</span>
+                                        </div>
                                     </div>
-                                    <div class="size-btn clearfix">
-                                        <input checked="checked" type="radio" id="xs" name="size" value="xs">
-                                        <label for="xs">xs</label>    
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h5 style="display: inline-block;">Màn hình:</h5>
+                                            <span>@Model.MonitorDetail</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <h5 style="display: inline-block;">Cân nặng:</h5>
+                                            <span>@Model.Weight</span>
+                                        </div>
                                     </div>
-                                    <div class="size-btn clearfix">
-                                        <input type="radio" id="xm" name="size" value="xm">
-                                        <label for="xm">xm</label>    
+                                }
+                                else{
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h5 style="display: inline-block;">Đang cập nhật</h5>
+                                        </div>
                                     </div>
-                                </div>
+                                }
                             </div>
                             <div class="product-cart-qty">
                                 <div class="quantityd clearfix">
                                     <button class="qtyBtn btnMinus"><span>-</span></button>
-                                    <input name="qty" value="1" title="Qty" class="input-text qty text carqty" type="text">
+                                    <input id="qty" value="1" title="Qty" class="input-text qty text carqty" type="text">
                                     <button class="qtyBtn btnPlus">+</button>
                                 </div>
-                                <a href="#" class="add-to-cart-btn">Add To Cart</a>
+                                @*<a id="update_item" onclick="updateCart(@Model.OrderDetailId)" class="button update" style="min-width: 100px; margin-top:5px;">Lưu</a>*@
+                                <a id="update-item" onclick="updateCart()" class="add-to-cart-btn">Thêm</a>
                                 <a href="#" class="Whislist"><i class="twi-heart"></i></a>
                                 <a href="#" class="compare"><i class="twi-random"></i></a>
                             </div>
@@ -120,217 +146,39 @@
                         </div>
                     </div>
                 </div>
-                <div class="row"><div class="col-lg-12"><div class="divider"></div></div></div>
-                <div class="row">
-                    <div class="col-lg-8 col-md-8">
-                        <div class="product-tabarea">
-                            <ul class="nav nav-tabs productTabs" id="productTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="descriptions-tab" data-toggle="tab" href="#descriptions" role="tab" aria-controls="descriptions" aria-selected="true">Description</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews (2)</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="productTabContent">
-                                <div class="tab-pane fade show active" id="descriptions" role="tabpanel" aria-labelledby="descriptions-tab">
-                                    <div class="descriptionContent">
-                                        <p>
-                                            Sed id interdum urna. Nam ac elit a ante commodo tristique. condimentum vehicula a hendrerit ac nisi. hendrerit ac nisi Lorem ipsum dolor sit amet Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. 
-                                        </p>
-                                        <p>
-                                            Nullam lacinia faucibus risus, a euismod lorem tincidunt id. Donec maximus placerat tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse faucibus sed dolor eget posuere.Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, condimentum a vehicula a, hendrerit ac nisi Lorem ipsum dolor sit amet.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="descriptions-tab">
-                                    <div class="comment-area">
-                                        <h4 class="comment-title">2 Reviews to “Gaming Controller”</h4>
-                                        <ol class="comment-list">
-                                            <li>
-                                                <div class="single-comment">
-                                                    <img src="~/assets/images/blog/c1.jpg" alt="">
-                                                    <h5><a href="#">Jason Statham</a><span>July 06th, 2017</span></h5>
-                                                    <div class="comment">
-                                                        <p>
-                                                            sapien lorem  et tristique nulla lectus fauc-ibus est Pellentesque dapibus
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="single-comment">
-                                                    <img src="~/assets/images/blog/c1.jpg" alt="">
-                                                    <h5><a href="#">Jason Statham</a><span>July 06th, 2017</span></h5>
-                                                    <div class="comment">
-                                                        <p>
-                                                            Proin vitae dignissim enim, a iaculis sapien. nisi et dignissim efficitur
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ol>
-                                        <div class="comment-form-wrapper">
-                                            <h5>Add Reivew</h5>
-                                            <form action="#" method="post" class="row comment-form">
-                                                <div class="col-lg-6 col-md-6">
-                                                    <input type="text" name="name" placeholder="Name">
-                                                </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <input type="email" name="email" placeholder="Email">
-                                                </div>
-                                                <div class="col-lg-12 col-md-12">
-                                                    <textarea name="message" placeholder="Reviews"></textarea>
-                                                </div>
-                                                <div class="col-lg-12 col-md-12">
-                                                    <input type="submit" name="submit" value="Submit Review">
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="product-speciality">
-                            <h5>Specifications</h5>
-                            <ul>
-                                <li>5.5 “ screen size</li>
-                                <li>170 x 80 x15 cm</li>
-                                <li>IOS 13 pre -installed</li>
-                                <li>3 Cameras Installed</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="related-product-area">
-                            <h3>Related Products</h3>
-                            <div class="related-slider owl-carousel">
-                                <div class="single-shop-product">
-                                    <div class="sp-thumb">
-                                        <img src="~/assets/images/shop/5.jpg" alt="" class="">
-                                        <div class="pro-badge">
-                                            <p class="sale">Sale</p>
-                                        </div>
-                                    </div>
-                                    <div class="sp-details">
-                                        <h4>VRBOX Gaming</h4>
-                                        <div class="product-price clearfix">
-                                            <span class="price">
-                                                <del><span><span class="woocommerce-Price-currencySymbol">$</span>42.00</span></del>
-                                                <ins><span><span class="woocommerce-Price-currencySymbol">$</span>38.00</span></ins>
-                                            </span>         
-                                        </div>
-                                        <div class="sp-details-hover">
-                                            <a class="sp-cart" href="#"><i class="twi-cart-plus"></i><span>Add to cart</span></a>
-                                            <a class="sp-wishlist" href="#"><i class="twi-heart2"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="single-shop-product">
-                                    <div class="sp-thumb">
-                                        <img src="~/assets/images/shop/1.jpg" alt="" class="">
-                                        <div class="pro-badge">
-                                            <p class="hot">Hot</p>
-                                        </div>
-                                    </div>
-                                    <div class="sp-details">
-                                        <h4>Gaming Mouse</h4>
-                                        <div class="product-price clearfix">
-                                            <span class="price">
-                                                <del><span><span class="woocommerce-Price-currencySymbol">$</span>42.00</span></del>
-                                                <ins><span><span class="woocommerce-Price-currencySymbol">$</span>38.00</span></ins>
-                                            </span>         
-                                        </div>
-                                        <div class="sp-details-hover">
-                                            <a class="sp-cart" href="#"><i class="twi-cart-plus"></i><span>Add to cart</span></a>
-                                            <a class="sp-wishlist" href="#"><i class="twi-heart2"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="single-shop-product">
-                                    <div class="sp-thumb">
-                                        <img src="~/assets/images/shop/8.jpg" alt="" class="">
-                                    </div>
-                                    <div class="sp-details">
-                                        <h4>Wirless Headset</h4>
-                                        <div class="product-price clearfix">
-                                            <span class="price">
-                                                <span><span class="woocommerce-Price-currencySymbol">$</span>122.00</span>
-                                            </span>         
-                                        </div>
-                                        <div class="sp-details-hover">
-                                            <a class="sp-cart" href="#"><i class="twi-cart-plus"></i><span>Add to cart</span></a>
-                                            <a class="sp-wishlist" href="#"><i class="twi-heart2"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="single-shop-product">
-                                    <div class="sp-thumb">
-                                        <img src="~/assets/images/shop/5.jpg" alt="" class="">
-                                        <div class="pro-badge">
-                                            <p class="sale">Sale</p>
-                                        </div>
-                                    </div>
-                                    <div class="sp-details">
-                                        <h4>VRBOX Gaming</h4>
-                                        <div class="product-price clearfix">
-                                            <span class="price">
-                                                <del><span><span class="woocommerce-Price-currencySymbol">$</span>42.00</span></del>
-                                                <ins><span><span class="woocommerce-Price-currencySymbol">$</span>38.00</span></ins>
-                                            </span>         
-                                        </div>
-                                        <div class="sp-details-hover">
-                                            <a class="sp-cart" href="#"><i class="twi-cart-plus"></i><span>Add to cart</span></a>
-                                            <a class="sp-wishlist" href="#"><i class="twi-heart2"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="single-shop-product">
-                                    <div class="sp-thumb">
-                                        <img src="~/assets/images/shop/1.jpg" alt="" class="">
-                                        <div class="pro-badge">
-                                            <p class="hot">Hot</p>
-                                        </div>
-                                    </div>
-                                    <div class="sp-details">
-                                        <h4>Gaming Mouse</h4>
-                                        <div class="product-price clearfix">
-                                            <span class="price">
-                                                <del><span><span class="woocommerce-Price-currencySymbol">$</span>42.00</span></del>
-                                                <ins><span><span class="woocommerce-Price-currencySymbol">$</span>38.00</span></ins>
-                                            </span>         
-                                        </div>
-                                        <div class="sp-details-hover">
-                                            <a class="sp-cart" href="#"><i class="twi-cart-plus"></i><span>Add to cart</span></a>
-                                            <a class="sp-wishlist" href="#"><i class="twi-heart2"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="single-shop-product">
-                                    <div class="sp-thumb">
-                                        <img src="~/assets/images/shop/8.jpg" alt="" class="">
-                                    </div>
-                                    <div class="sp-details">
-                                        <h4>Wirless Headset</h4>
-                                        <div class="product-price clearfix">
-                                            <span class="price">
-                                                <span><span class="woocommerce-Price-currencySymbol">$</span>122.00</span>
-                                            </span>         
-                                        </div>
-                                        <div class="sp-details-hover">
-                                            <a class="sp-cart" href="#"><i class="twi-cart-plus"></i><span>Add to cart</span></a>
-                                            <a class="sp-wishlist" href="#"><i class="twi-heart2"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
         <!-- Shop Section End -->
+        @section Scripts{
+	<script>
+        function updateCart(){
+            var _amount = $("#qty").val();
+            //console.log(num);
+            console.log(_amount);
+            //$.get('/Cart/UpdateCart', function(data, status)
+            //{
+            //    alert("Data: " + data + "\nStatus: " + status)
+            //});
+			$.ajax({
+				url: '/Cart/AddToCart',
+				datatype: 'json',
+				method: 'GET',
+				data:{
+					ProductId: @Model.ProductId,
+					amount: _amount,
+                    url: "/Product/Details/" + @Model.ProductId
+				},
+				async: true,
+				success: function(result){
+					if(result.status == 'success'){
+						window.location.href = result.redirectUrl;
+					}
+				},
+				error: function(xhr){
+					console.log(xhr);
+				}
+			});
+        }
+	</script>
+}
+

@@ -1,36 +1,20 @@
 ﻿@model IEnumerable<IS220_PROJECT.Models.Category>
 
 @{
-    ViewData["Title"] = "Phân loại sản phẩm";
+    ViewData["Title"] = "Danh mục";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Phân loại sản phẩm</h1>
+<h1>Danh mục</h1>
 
 <div class="card">
 	<div class="card-body">
-		<div class="row m-b-30">
-			<div class="col-lg-8">
-				<div class="d-md-flex">
-					<div class="m-b-10 m-r-15">
-						<select class="custom-select" style="min-width: 200px;" asp-items="ViewBag.Cats">
-							<option value="" disabled selected>Chọn loại</option>
-						</select>
-					</div>
-					<div class="m-b-10">
-						<select class="custom-select" style="min-width: 200px;" asp-items="ViewBag.isPublished">
-							<option value="" disabled selected>Trạng thái</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4 text-right">
+			<div class="text-right">
 				<a class="btn btn-primary" asp-action="Create">
 					<i class="anticon anticon-plus-circle m-r-5"></i>
 					<span>Thêm phân loại</span>
 				</a>
 			</div>
-		</div>
 		<div class="table-responsive">
 			<table class="table table-hover e-commerce-table">
 				<thead>

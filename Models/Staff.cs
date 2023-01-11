@@ -14,6 +14,7 @@ namespace IS220_PROJECT.Models
         public string? Phone { get; set; }
         public int? AccountId { get; set; }
         public DateTime? CreateDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
         public bool Active { get; set; }
 
         public virtual Account? Account { get; set; }

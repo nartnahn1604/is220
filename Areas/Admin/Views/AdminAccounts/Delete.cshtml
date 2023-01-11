@@ -48,7 +48,7 @@
         </dd>
     </dl>
     
-    <form asp-action="Delete" asp-route-id="Model.AccountId" method="post">
+    <form asp-action="Delete" asp-route-id="@Model.AccountId" method="post">
         <input type="hidden" asp-for="AccountId" />
         <input type="submit" value="Xóa" class="btn btn-danger" /> |
         <a asp-action="Index">Quay lại</a>

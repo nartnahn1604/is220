@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using IS220_PROJECT.Models;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using Microsoft.AspNetCore.Server.IIS;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace IS220_PROJECT
 {
@@ -17,7 +19,13 @@ namespace IS220_PROJECT
             builder.Services.AddControllersWithViews();
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
             builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
-
+            builder.Services.AddSession();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                                        .AddCookie(options =>
+                                            {
+                                                options.LoginPath = new PathString("/Login");
+                                                options.AccessDeniedPath = new PathString("/");
+                                            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -27,7 +35,7 @@ namespace IS220_PROJECT
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             //app.UseStaticFiles(new StaticFileOptions
@@ -37,6 +45,7 @@ namespace IS220_PROJECT
             //app.UsePathBase("~/Assets");
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

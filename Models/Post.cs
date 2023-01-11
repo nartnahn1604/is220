@@ -9,6 +9,7 @@ namespace IS220_PROJECT.Models
         public string? Title { get; set; }
         public string? Contents { get; set; }
         public string? Thumb { get; set; }
+        //public List<string>? img { get; set; }
         public int? AccountId { get; set; }
         public DateTime? CreateDate { get; set; }
         public string? Author { get; set; }

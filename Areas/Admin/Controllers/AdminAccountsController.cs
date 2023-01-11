@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IS220_PROJECT.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace IS220_PROJECT.Areas.Admin.Controllers
 {
@@ -15,10 +16,12 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
     public class AdminAccountsController : Controller
     {
         private readonly dbFrameContext _context;
+        public INotyfService _notyfService { get; }
 
-        public AdminAccountsController(dbFrameContext context)
+        public AdminAccountsController(dbFrameContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminAccounts
@@ -55,7 +58,7 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
         // GET: Admin/AdminAccounts/Create
         public IActionResult Create()
         {
-            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId");
+            ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleName");
             return View();
         }
 
@@ -68,9 +71,27 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var listaccount = _context.Accounts.AsNoTracking().ToList();
+                bool check = false;
+                listaccount.ForEach(a =>
+                {
+                    if (a.AccountName.IndexOf(account.AccountName) != -1)
+                    {
+                        check = true;
+                        return;
+                    }
+                });
+                if (check)
+                {
+                    _notyfService.Error("Tài khoản đã tồn tại");
+                    return Redirect("/AdminCustomers/Create");
+                }
+                account.Active = true;
+                account.CreateDate = DateTime.Now;
                 _context.Add(account);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _notyfService.Success("Tạo tài khoản thành công");
+                return Redirect("/AdminCustomers/Create?newAcount=true");
             }
             ViewData["RoleId"] = new SelectList(_context.Roles, "RoleId", "RoleId", account.RoleId);
             return View(account);
@@ -109,6 +130,7 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
             {
                 try
                 {
+                    account.ModifiedDate = DateTime.Now;  
                     _context.Update(account);
                     await _context.SaveChangesAsync();
                 }

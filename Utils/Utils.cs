@@ -1,4 +1,7 @@
-﻿using System;
+﻿using IS220_PROJECT.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -94,6 +97,13 @@ namespace IS220_PROJECT.Utils
             {
                 return null;
             }
+        }
+
+        public static JObject readApi(string url)
+        {
+            string text = File.ReadAllText(Path.GetFullPath(url));
+            JObject json = JObject.Parse(text);
+            return json;
         }
     }
 }

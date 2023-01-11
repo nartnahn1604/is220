@@ -1,8 +1,7 @@
 ﻿@using PagedList.Core.Mvc
 @model PagedList.Core.IPagedList<IS220_PROJECT.Models.Customer>
 @{
-    int curPage = ViewBag.CurrentPage;
-    ViewData["Title"] = "Danh sách khách hàng" + curPage;
+    ViewData["Title"] = "Danh sách khách hàng";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 
 }
@@ -74,7 +73,7 @@
 									@item.FullName
 								</td>
 								<td>
-									@item.Birthday
+									@item.Birthday.Value.Date.ToString("dd/MM/yyyy")
 								</td>
 								<td>
 									@item.Phone

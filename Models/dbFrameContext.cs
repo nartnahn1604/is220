@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using IS220_PROJECT.Models;
 
 namespace IS220_PROJECT.Models
 {
@@ -52,6 +56,8 @@ namespace IS220_PROJECT.Models
 
                 entity.Property(e => e.LastLogin).HasColumnType("datetime");
 
+                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+
                 entity.Property(e => e.Password).HasMaxLength(50);
 
                 entity.Property(e => e.RoleId).HasColumnName("RoleID");
@@ -103,6 +109,8 @@ namespace IS220_PROJECT.Models
                     .IsFixedLength();
 
                 entity.Property(e => e.FullName).HasMaxLength(50);
+
+                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(10)
@@ -341,6 +349,8 @@ namespace IS220_PROJECT.Models
 
                 entity.Property(e => e.FullName).HasMaxLength(50);
 
+                entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+
                 entity.Property(e => e.Phone)
                     .HasMaxLength(10)
                     .IsUnicode(false);
@@ -377,5 +387,9 @@ namespace IS220_PROJECT.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public DbSet<IS220_PROJECT.Models.LoginViewModel> LoginViewModel { get; set; }
+
+        public DbSet<IS220_PROJECT.Models.CustomerInvoice> CustomerInvoice { get; set; }
     }
 }

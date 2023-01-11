@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IS220_PROJECT.Models;
 using PagedList.Core;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace IS220_PROJECT.Areas.Admin.Controllers
 {
@@ -16,10 +17,12 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
     public class AdminCustomersController : Controller
     {
         private readonly dbFrameContext _context;
+        public INotyfService _notyfService { get; }
 
-        public AdminCustomersController(dbFrameContext context)
+        public AdminCustomersController(dbFrameContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminCustomers
@@ -42,9 +45,7 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers
-                .Include(c => c.Account)
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
+            var customer = await _context.Customers.AsNoTracking().Include(p => p.Account).FirstOrDefaultAsync(p => p.CustomerId == id);
             if (customer == null)
             {
                 return NotFound();
@@ -54,9 +55,14 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminCustomers/Create
-        public IActionResult Create()
+        public IActionResult Create(bool newAccount = false)
         {
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "AccountId");
+            var lsaccount = _context.Accounts.AsNoTracking().ToList();
+            int accountId = 0;
+            if (newAccount == true)
+                accountId = lsaccount[lsaccount.Count - 1].AccountId;
+            ViewBag.AccountId = accountId; 
+            ViewData["Roles"] = new SelectList(_context.Roles, "RoleId", "RoleName", 2);
             return View();
         }
 
@@ -65,12 +71,39 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerId,FullName,Birthday,Avatar,Address,Email,Phone,CreateDate,Active,AccountId")] Customer customer)
+        public async Task<IActionResult> Create([Bind("CustomerId,FullName,Birthday,Avatar,Address,Email,Phone,CreateDate,Active,AccountId")] Customer customer, [FromForm(Name = "fileAva")] IFormFile fileThumb)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    customer.FullName = Utils.Utils.ToTitleCase(customer.FullName);
+                    if (fileThumb != null)
+                    {
+                        string extension = Path.GetExtension(fileThumb.FileName);
+                        string img = Utils.Utils.formatVNString(customer.FullName) + extension;
+                        customer.Avatar = await Utils.Utils.UploadFile(fileThumb, @"customers", img.ToLower());
+                    }
+                    if (string.IsNullOrEmpty(customer.Avatar))
+                        customer.Avatar = "default.png";
+                    customer.CreateDate = DateTime.Now;
+                    customer.ModifiedDate = DateTime.Now;
+                    customer.Active = true;
+                    _context.Add(customer);
+                    await _context.SaveChangesAsync();
+                    _notyfService.Success("Thêm khách hàng thành công");
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CustomerExists(customer.CustomerId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AccountId"] = new SelectList(_context.Accounts, "AccountId", "AccountId", customer.AccountId);
@@ -85,7 +118,7 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = await _context.Customers.AsNoTracking().Include(p => p.Account).FirstOrDefaultAsync(p => p.CustomerId == id);
             if (customer == null)
             {
                 return NotFound();
@@ -99,19 +132,33 @@ namespace IS220_PROJECT.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustomerId,FullName,Birthday,Avatar,Address,Email,Phone,CreateDate,Active,AccountId")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("CustomerId,FullName,Birthday,Avatar,Address,Email,Phone,CreateDate,Active,AccountId")] Customer customer, [FromForm(Name = "fileAva")] IFormFile fileThumb)
         {
             if (id != customer.CustomerId)
             {
                 return NotFound();
             }
-
+            var errors = ModelState
+                            .Where(x => x.Value.Errors.Count > 0)
+                            .Select(x => new { x.Key, x.Value.Errors })
+                            .ToArray();
             if (ModelState.IsValid)
             {
                 try
                 {
+                    customer.FullName = Utils.Utils.ToTitleCase(customer.FullName);
+                    if (fileThumb != null)
+                    {
+                        string extension = Path.GetExtension(fileThumb.FileName);
+                        string img = Utils.Utils.formatVNString(customer.FullName) + extension;
+                        customer.Avatar = await Utils.Utils.UploadFile(fileThumb, @"customers", img.ToLower());
+                    }
+                    if (string.IsNullOrEmpty(customer.Avatar))
+                        customer.Avatar = "default.png";
+                    customer.ModifiedDate = DateTime.Now;
                     _context.Update(customer);
                     await _context.SaveChangesAsync();
+                    _notyfService.Success("Sửa thành công");
                 }
                 catch (DbUpdateConcurrencyException)
                 {

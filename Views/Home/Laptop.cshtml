@@ -1,7 +1,9 @@
-﻿
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<IS220_PROJECT.Models.Product>
 @{
     ViewData["Title"] = "Laptop";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    PagedList.Core.IPagedList<IS220_PROJECT.Models.Product> laptops = Model;
 }
 
 <!-- Banner Start -->
